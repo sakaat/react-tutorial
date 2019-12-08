@@ -1,15 +1,15 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require("webpack");
-var path = require("path");
-
+const publicDir = __dirname + "/public";
 module.exports = {
-    context: path.join(__dirname, "src"),
-    entry: "./js/client.js",
+    entry: ["./src/index.jsx"],
+    output: {
+        path: publicDir,
+        publicPath: "/",
+        filename: "bundle.js",
+    },
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 use: [
                     {
                         loader: "babel-loader",
@@ -24,17 +24,11 @@ module.exports = {
             },
         ],
     },
-    output: {
-        path: __dirname + "/src/",
-        filename: "client.min.js",
+    resolve: {
+        extensions: [".js", ".jsx"],
     },
-    plugins: debug
-        ? []
-        : [
-              new webpack.optimize.OccurrenceOrderPlugin(),
-              new webpack.optimize.UglifyJsPlugin({
-                  mangle: false,
-                  sourcemap: false,
-              }),
-          ],
+    devServer: {
+        historyApiFallback: true,
+        contentBase: publicDir,
+    },
 };
