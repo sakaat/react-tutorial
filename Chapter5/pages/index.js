@@ -1,23 +1,18 @@
+import Counter from "../components/Counter";
+import Link from "next/link";
+import Layout from "../components/Layout";
+import Image from "../static/Image";
+
 export default () => (
-    <div>
-        <style jsx>
-            {`
-                h1 {
-                    font-size: 68pt;
-                    font-weight: bold;
-                    text-align: right;
-                    letter-spacing: -8px;
-                    color: #f0f0f0;
-                    margin: -32px 0px;
-                }
-                p {
-                    margin: 0px;
-                    color: #666;
-                    font-size: 16pt;
-                }
-            `}
-        </style>
-        <h1>Next.js</h1>
+    <Layout header="Next" title="Top page.">
         <p>Welcome to next.js!</p>
-    </div>
+        <Image fname="sndyhg.jpg" size="250" />
+        <hr />
+        <Counter />
+        <div>
+            <Link href="./other">
+                <button>Go to Other page &gt;&gt;</button>
+            </Link>
+        </div>
+    </Layout>
 );
