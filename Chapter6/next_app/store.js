@@ -1,41 +1,35 @@
 import { createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
+import firebase from "firebase";
 
-const initial = {
-    message: "START",
-    data: [],
-    number: [],
-    result: 0,
+const firebaseConfig = {
+    apiKey: "AIzaSyBqJBX8pZzyJgGnWxm_KBOjc7_M6JsRjY8",
+    authDomain: "react-tutorial-f2f2d.firebaseapp.com",
+    databaseURL: "https://react-tutorial-f2f2d.firebaseio.com",
+    projectId: "react-tutorial-f2f2d",
+    storageBucket: "react-tutorial-f2f2d.appspot.com",
+    messagingSenderId: "147929545398",
+    appId: "1:147929545398:web:acb813afa2a474e69ec417",
+    measurementId: "G-0DXZQY2GYR",
 };
 
-function calcReducer(state = initial, action) {
+try {
+    firebase.initializeApp(firebaseConfig);
+} catch (error) {
+    console.log(error.message);
+}
+
+const initial = {};
+
+function fireReducer(state = intitial, action) {
     switch (action.type) {
-        case "ENTER":
-            const data2 = state.data.slice();
-            const s = action.value;
-            data2.unshift(s);
-            const num = s.replace(/[^0-9]/g, "");
-            const number2 = state.number.slice();
-            number2.unshift(num);
-            const result = state.result * 1 + num * 1;
-            return {
-                message: "ENTER",
-                data: data2,
-                number: number2,
-                result: result,
-            };
-        case "RESET":
-            return {
-                message: "RESET",
-                data: [],
-                number: [],
-                result: 0,
-            };
+        case "TESTACTION":
+            return state;
         default:
             return state;
     }
 }
 
 export function initStore(state = initial) {
-    return createStore(calcReducer, state, applyMiddleware(thunkMiddleware));
+    return createStore(fireReducer, state, applyMiddleware(thunkMiddleware));
 }
